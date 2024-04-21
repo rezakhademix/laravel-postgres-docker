@@ -1,0 +1,172 @@
+
+services:
+    nginx:
+        container_name: "nginx"
+        build:
+            context: ./dockerfiles
+            dockerfile: nginx.dockerfile
+            args:
+                - UID=${UID:-1000}
+                - GID=${GID:-1000}
+        ports:
+            - "${FORWARD_NGINX_PORT:-80}:80"
+        volumes:
+            - ./src:/var/www/html:delegated
+        depends_on:
+            - php
+            - redis
+            - postgresql
+        networks:
+            - laravel
+        restart: unless-stopped
+
+    postgresql:
+        image: postgres:16.2
+        container_name: postgresql
+        environment:
+          POSTGRES_DB: ${DB_DATABASE}
+          POSTGRES_USER: ${DB_USERNAME}
+          POSTGRES_PASSWORD: ${DB_PASSWORD}
+          PGDATA: /data/postgres
+          TZ: Asia/Tehran
+        healthcheck:
+          test: [ "CMD-SHELL", "pg_isready -d ${DB_DATABASE} -U ${DB_USERNAME}" ]
+          interval: 5s
+          timeout: 5s
+          retries: 5
+        volumes:
+          - postgresql:/data/postgres
+        ports:
+          - "${FORWARD_DB_PORT:-5432}:5432"
+        networks:
+          - laravel
+        restart: unless-stopped
+
+    php:
+        container_name: "php"
+        build:
+            context: ./dockerfiles
+            dockerfile: php.dockerfile
+            args:
+                - UID=${UID:-1000}
+                - GID=${GID:-1000}
+        ports:
+            - "${FORWARD_PHP_PORT:-9000}:9000"
+        volumes:
+            - ./src:/var/www/html:delegated
+            - ./dockerfiles/configs/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+        networks:
+            - laravel
+        restart: unless-stopped
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: pgadmin
+        environment:
+          PGADMIN_DEFAULT_EMAIL: homestead@mail.com
+          PGADMIN_DEFAULT_PASSWORD: secret
+        volumes:
+          - pgadmin:/var/lib/pgadmin
+        ports:
+          - "${FORWARD_PGADMIN_PORT:-8090}:80"
+        depends_on:
+          postgresql:
+            condition: service_healthy
+        networks:
+          - laravel
+        restart: unless-stopped
+
+    adminer:
+      container_name: adminer
+      image: adminer
+      ports:
+        - "${FORWARD_ADMINER_PORT:-8091}:80"
+      environment:
+        ADMINER_DEFAULT_DB_DRIVER: pgsql
+        ADMINER_DEFAULT_SERVER: postgresql
+        ADMINER_DEFAULT_DB_NAME: ${DB_DATABASE}
+      depends_on:
+        - postgresql
+      networks:
+        - laravel
+      restart: unless-stopped
+
+    redis:
+        container_name: "redis"
+        image: redis:alpine
+        ports:
+            - "${FORWARD_REDIS_PORT:-6379}:6379"
+        volumes:
+            - redis:/data
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+        networks:
+            - laravel
+        restart: unless-stopped
+
+    composer:
+        container_name: "composer"
+        build:
+            context: ./dockerfiles
+            dockerfile: php.dockerfile
+            args:
+                - UID=${UID:-1000}
+                - GID=${GID:-1000}
+        volumes:
+            - ./src:/var/www/html
+        depends_on:
+            - php
+        entrypoint: ["composer", "--ignore-platform-reqs"]
+        networks:
+            - laravel
+
+    npm:
+        container_name: "npm"
+        image: node:current-alpine
+        volumes:
+            - ./src:/var/www/html
+        ports:
+            - "${FORWARD_NPM_PORT:-3000}:3000"
+        working_dir: /var/www/html
+        entrypoint: ["npm"]
+        networks:
+            - laravel
+
+    artisan:
+        container_name: "artisan"
+        build:
+            context: ./dockerfiles
+            dockerfile: php.dockerfile
+            args:
+                - UID=${UID:-1000}
+                - GID=${GID:-1000}
+        volumes:
+            - ./src:/var/www/html:delegated
+        depends_on:
+            - postgresql
+            - redis
+        entrypoint: ["php", "/var/www/html/artisan"]
+        networks:
+            - laravel
+    mailhog:
+      image: mailhog/mailhog:latest
+      container_name: mailhog
+      ports:
+        - '${FORWARD_MAILHOG_PORT:-1025}:1025'
+        - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+      networks:
+        - laravel
+
+volumes:
+  postgresql:
+    driver: local
+  pgadmin:
+    driver: local
+  redis:
+    driver: local
+
+networks:
+    laravel:
+        driver: bridge
