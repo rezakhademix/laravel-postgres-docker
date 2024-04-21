@@ -1,6 +1,6 @@
 # Dockerize Laravel App
 
-A simplified Docker Compose workflow that sets up a Laravel network of containers for local Laravel development with Phpmyadmin.
+A simplified Docker Compose workflow that sets up a Laravel network of containers for local Laravel development with Adminer & PGAdmin.
 
 ## Usage
 
@@ -10,15 +10,16 @@ Next, navigate in your terminal to the directory you cloned this, and spin up th
 
 After that completes, follow the steps from the [src/README.md](src/README.md) file to get your Laravel project added in (or create a new blank Laravel app).
 
-**Note**: Your MySQL database host name should be `mysql`, **note** `localhost`. The username and database should both be `homestead` with a password of `secret`.
+**Note**: Your Postgres database host name should be `postgres`, **note** `localhost`. The username and database should both be `homestead` with a password of `secret`.
 
 The following are built for our web server, with their exposed ports detailed:
 
 -   **nginx** - `:80`
--   **mysql** - `:3306`
+-   **postgres** - `:5432`
 -   **php** - `:9000`
 -   **redis** - `:6379`
--   **phpmyadmin** - `:8081`
+-   **adminer** - `:8091`
+-   **pgadmin** - `:8090`
 
 Three additional containers are included that handle Composer, NPM, and Artisan commands _without_ having to have these platforms installed on your local computer. Use the following command examples from your project root, modifying them to fit your particular use case.
 
@@ -26,30 +27,16 @@ Three additional containers are included that handle Composer, NPM, and Artisan 
 -   `docker compose run --rm npm run dev`
 -   `docker compose run --rm artisan migrate`
 
-## Persistent MySQL Storage
+## Makefile
 
-By default, whenever you bring down the Docker network, your MySQL data will be removed after the containers are destroyed. If you would like to have persistent data that remains after bringing containers down and back up, do the following:
-
-1. Create a `mysql` folder in the project root, alongside the `nginx` and `src` folders.
-2. Under the mysql service in your `docker-compose.yml` file, add the following lines:
+There is a `makefile` which can help you to run every docker or artisan command easily. If you're not familiar with [GNU Makefile](https://www.gnu.org/software/make/manual/make.html) it's ok and you can still use this repository (even you can delete `makefile`), but with `makefile` you can manage different commands easier and better! Before using a `makefile` just install it from [GNU Makefile](https://www.gnu.org/software/make/manual/make.html) and run `make` command in repository root directory and you will see a help result to use it. some of `make` command example to simplify workflow:
 
 ```
-volumes:
-  - ./mysql:/var/lib/mysql
-```
+# run migrations
+make migrate
 
-1. If you want to initialize database data with a sql file you should create a `docker-entrypoint-initdb.d` folder inside `./mysql` and put your `db.sql` file into it.
-
-2. Samething abour redis container so you should decide about redis persistent data:(optional)
-
-#### another way of doing the 2,3:
-
-```
-volumes:
-  mysql:
-    driver: local
-  redis:
-    driver: local
+# run tinker
+make tinker
 ```
 
 ## docker exec container
