@@ -6,7 +6,7 @@ A simplified Docker Compose workflow that sets up a Laravel network of container
 
 To get started, make sure you have [Docker installed](https://docs.docker.com/docker-for-mac/install/) on your system, and then clone this repo.
 
-Next, navigate in your terminal to the directory you cloned this, and spin up the containers for the web server by running `docker compose up -d --build app`.
+Next, navigate in your terminal to the directory you cloned this, and spin up the containers for the web server by running `docker compose up -d --build`.
 
 After that completes, follow the steps from the [src/README.md](src/README.md) file to get your Laravel project added in (or create a new blank Laravel app).
 
