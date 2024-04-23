@@ -23,7 +23,7 @@ The following are built for our web server, with their exposed ports detailed:
 
 Three additional containers are included that handle Composer, NPM, and Artisan commands _without_ having to have these platforms installed on your local computer. Use the following command examples from your project root, modifying them to fit your particular use case.
 
--   `docker compose run --rm composer update`
+-   `docker compose run --rm composer install`
 -   `docker compose run --rm npm run dev`
 -   `docker compose run --rm artisan migrate`
 
@@ -39,7 +39,7 @@ make migrate
 make tinker
 ```
 
-## docker exec container
+## Docker exec container
 
 Access container as interactive shell and see output:
 
@@ -75,7 +75,5 @@ Then, run the following commands to install your dependencies and start the dev 
 
 -   `docker compose run --rm npm install`
 -   `docker compose run --rm --service-ports npm run dev`
-
-After that, you should be able to use `@vite` directives to enable hot-module reloading on your local Laravel application.
 
 Want to build for production? Simply run `docker compose run --rm npm run build`.
