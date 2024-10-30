@@ -80,7 +80,7 @@ services:
       container_name: adminer
       image: adminer
       ports:
-        - "${FORWARD_ADMINER_PORT:-8091}:80"
+        - "${FORWARD_ADMINER_PORT:-8080}:80"
       environment:
         ADMINER_DEFAULT_DB_DRIVER: pgsql
         ADMINER_DEFAULT_SERVER: postgresql
