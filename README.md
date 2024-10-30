@@ -18,7 +18,7 @@ The following are built for our web server, with their exposed ports detailed:
 -   **postgres** - `:5432`
 -   **php** - `:9000`
 -   **redis** - `:6379`
--   **adminer** - `:8091`
+-   **adminer** - `:8080`
 -   **pgadmin** - `:8090`
 
 Three additional containers are included that handle Composer, NPM, and Artisan commands _without_ having to have these platforms installed on your local computer. Use the following command examples from your project root, modifying them to fit your particular use case.
