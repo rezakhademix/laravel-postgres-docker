@@ -1,16 +1,16 @@
 
 services:
-   portainer:
-        container_name: portainer
-        image: portainer/portainer
-        restart: always
-        ports: 
-          - "9000:9000/tcp"
-        environment:
-          - TZ=Europe/Berlin
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /opt/portainer:/data
+    portainer:
+      container_name: portainer
+      image: portainer/portainer
+      restart: always
+      ports: 
+        - "9090:9000/tcp"
+      environment:
+        - TZ=Europe/Berlin
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /opt/portainer:/data
 
     nginx:
         container_name: "nginx"
