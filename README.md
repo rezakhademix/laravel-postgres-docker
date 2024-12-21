@@ -23,9 +23,9 @@ The following are built for our web server, with their exposed ports detailed:
 
 Three additional containers are included that handle Composer, NPM, and Artisan commands _without_ having to have these platforms installed on your local computer. Use the following command examples from your project root, modifying them to fit your particular use case.
 
--   `docker compose run --rm composer install`
--   `docker compose run --rm npm run dev`
--   `docker compose run --rm artisan migrate`
+-   `docker compose run --rm --user $(1000 -u):$(1000 -g) composer install`
+-   `docker compose run --rm --user $(1000 -u):$(1000 -g) npm run dev`
+-   `docker compose run --rm --user $(1000 -u):$(1000 -g) artisan migrate`
 
 ## Makefile
 
