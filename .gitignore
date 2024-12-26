@@ -6,3 +6,5 @@
 
 .AppleDouble
 .LSOverride
+src/*
+
