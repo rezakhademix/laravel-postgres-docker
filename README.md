@@ -23,7 +23,8 @@ After that completes, follow the steps from the [src/README.md](src/README.md) f
 
 The following are built for our web server, with their exposed ports detailed:
 
--   **nginx** - `:80`
+-   **portainer** - `:9090`
+-   **nginx** - `:443`
 -   **postgres** - `:5432`
 -   **php** - `:9000`
 -   **redis** - `:6379`
