@@ -6,15 +6,25 @@ A simplified Docker Compose workflow that sets up a Laravel network of container
 
 To get started, make sure you have [Docker installed](https://docs.docker.com/docker-for-mac/install/) on your system, and then clone this repo.
 
-Next, navigate in your terminal to the directory you cloned this, and spin up the containers for the web server by running `docker compose up -d --build`.
+Next, navigate in your terminal to the directory you cloned this. 
+create a self-signed certificate for the nginx-server (only for development, for production use a real certificate)
 
-After that completes, follow the steps from the [src/README.md](src/README.md) file to get your Laravel project added in (or create a new blank Laravel app).
+`mkdir ./ssl/certs`
+
+`mkdir ./ssl/private`
+
+`openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./ssl/private/localhost.key -out ./ssl/certs/localhost.crt -config ./ssl/localhost.conf`
+
+and spin up the containers for the web server by running `docker compose up -d --build`.
+
+After that completes, follow the steps from the [src_readme.md](src_readme.md) file to get your Laravel project added in (or create a new blank Laravel app).
 
 **Note**: Your Postgres database host name should be `postgres`, **note** `localhost`. The username and database should both be `homestead` with a password of `secret`.
 
 The following are built for our web server, with their exposed ports detailed:
 
--   **nginx** - `:80`
+-   **portainer** - `:9090`
+-   **nginx** - `:443`
 -   **postgres** - `:5432`
 -   **php** - `:9000`
 -   **redis** - `:6379`
