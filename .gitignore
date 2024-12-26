@@ -7,4 +7,6 @@
 .AppleDouble
 .LSOverride
 src/*
+ssl/private/*
+ssl/certs/*
 
