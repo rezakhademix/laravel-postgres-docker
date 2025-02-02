@@ -51,11 +51,29 @@ migrate: ## run artisan migrate
 horizon: ## run horizon
 	docker compose run --rm artisan horizon
 
+permission: ## run & assign permission
+	docker compose run --rm artisan auth:permission
+
+resource: ## make api resource
+	docker compose run --rm artisan make:resource
+
+request: ## make request
+	docker compose run --rm artisan make:request
+
+controller: ## make controller
+	docker compose run --rm artisan make:controller
+
+model: ## make model
+	docker compose run --rm artisan make:model
+
 pint: ## format codes with pint
 	docker compose run php ./vendor/bin/pint
 
 test: ## run tests
 	docker compose run --rm artisan test
+
+swagger: ## generate swagger
+	docker compose run --rm artisan l5-swagger:generate --all
 
 # makefile help
 help:
