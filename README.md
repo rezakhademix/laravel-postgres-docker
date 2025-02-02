@@ -48,6 +48,12 @@ make up
 # run docker compose down --volumes
 make down-volumes
 
+# run php artisan make:contoller
+make contoller
+
+# run php artisan make:resource
+make resource
+
 # run migrations
 make migrate
 
@@ -56,6 +62,8 @@ make tinker
 
 # run artisan commands
 make art db:seed
+
+# and more.. 
 ```
 
 ## Docker exec container
