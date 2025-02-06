@@ -17,7 +17,7 @@ create a self-signed certificate for the nginx-server (only for development, for
 
 and spin up the containers for the web server by running `docker compose up -d --build`.
 
-After that completes, follow the steps from the [src_readme.md](src_readme.md) file to get your Laravel project added in (or create a new blank Laravel app).
+After that completes, follow the steps from the `src` directory `readme` file to get your Laravel project added in (or create a new blank Laravel app).
 
 **Note**: Your Postgres database host name should be `postgres`, **note** `localhost`. The username and database should both be `homestead` with a password of `secret`.
 
