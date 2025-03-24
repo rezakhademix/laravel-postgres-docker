@@ -104,3 +104,31 @@ Then, run the following commands to install your dependencies and start the dev 
 -   `docker compose run --rm --service-ports npm run dev`
 
 Want to build for production? Simply run `docker compose run --rm npm run build`.
+
+
+# Laravel Postgres Docker
+
+## Description
+A simplified Docker Compose workflow that sets up a Laravel network of containers for local Laravel development with Adminer & PGAdmin.
+
+## License
+This project is licensed under the MIT License. See the full license below:
+
+```
+MIT License
+
+Copyright (c) 2025 Reza Khademi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+## Unauthorized Use Warning
+Unauthorized copying, modification, or distribution of this code without proper attribution is strictly prohibited. If you see this code being misused, please report it.
+
+## Contact
+If you have any questions, feel free to reach out at rezakhademix@gmail.com.
+
