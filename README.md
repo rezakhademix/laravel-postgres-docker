@@ -1,3 +1,5 @@
+# Laravel Postgres Docker
+
 # Dockerize Laravel App
 
 A simplified Docker Compose workflow that sets up a Laravel network of containers for local Laravel development with Adminer & PGAdmin.
@@ -105,11 +107,6 @@ Then, run the following commands to install your dependencies and start the dev 
 
 Want to build for production? Simply run `docker compose run --rm npm run build`.
 
-
-# Laravel Postgres Docker
-
-## Description
-A simplified Docker Compose workflow that sets up a Laravel network of containers for local Laravel development with Adminer & PGAdmin.
 
 ## License
 This project is licensed under the MIT License. See the full license below:
