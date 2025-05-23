@@ -40,7 +40,10 @@ RUN apk add --no-cache \
     postgresql-client \
     linux-headers
 
-RUN docker-php-ext-install pgsql pdo pdo_pgsql mbstring exif zip soap pcntl bcmath curl zip opcache sockets posix
+RUN docker-php-ext-install pgsql pdo pdo_pgsql mbstring exif zip soap bcmath curl zip opcache sockets posix
+
+RUN docker-php-ext-configure pcntl --enable-pcntl \
+    && docker-php-ext-install pcntl
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
